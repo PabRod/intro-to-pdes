@@ -33,11 +33,11 @@
   \titlepage
   
   \begin{center}
-  \qrcode{https://pabrod.github.io}
+  \qrcode{https://pabrod.github.io/intro-to-pdes-en.html}
   \end{center}
   
   \begin{center}
-  pabrod.github.io
+  pabrod.github.io/intro-to-pdes-en.html
   \end{center}
   
 \end{frame}
@@ -45,7 +45,7 @@
 % Disclaimer
 \begin{frame}{Disclaimer}
 
-These slides are a support for the crash course \textit{Very quick introduction to partial differential equations}, given at Wageningen University in June 2018. As a direct consequence, they will perform poorly if used as a self-study material.
+These slides are a support for the crash course \textit{Very quick introduction to partial differential equations}, given at Wageningen University in June 2018. As a direct consequence, the slides will perform poorly if used as a self-study material.
 
 \begin{flushright}
 Pablo Rodriguez-Sanchez
@@ -275,6 +275,94 @@ Pablo Rodriguez-Sanchez
     \end{tabular}
     \caption{\label{tab:MatlabTools}PDE problems and Matlab tool.}
     \end{table}
+  
+  \end{frame}
+  
+  \begin{frame}{pdepe}
+  	pdepe is used to solve equations of the following form, where $c$, $f$ and $s$ are functions of $(x,t,u, \frac{\partial u}{\partial t})$:
+    
+    \begin{displaymath} 
+    c \frac{\partial u}{\partial t} = x^{-m} \frac{\partial}{\partial x}(x^m f) + s
+    \end{displaymath}
+    
+    with boundary conditions:
+    
+    \begin{displaymath} 
+    	p(x,t,u) + q(x,t) \cdot f = 0    
+    \end{displaymath}
+    
+  	Typically, pdepe is used as:
+    
+    \begin{quotation}
+		sol = pdepe(m, @pdefun, @icfun, @bcfun, x, t);
+    \end{quotation}
+    
+    Where:
+    
+    \begin{itemize}
+    
+    	\item m is a real number
+    	\item x and t are vectors
+    	\item c, f, s = pdefun(x, t, u, DuDx)
+    	\item u0 = icfun(x)
+    	\item pl, ql, pr, qr = bcfun(xl, ul, xr, ur, t)
+    
+    \end{itemize}
+
+    
+  \end{frame}
+  
+  % ----------------------------------------------------------
+  \subsection{Exercises}
+  
+  \begin{frame}{Cooling rod}
+  
+  In this example we will model step by step a cooling metallic rod. We know that:
+  
+  	\begin{itemize}
+    \item The rod satisfies the heat equation
+  	\item The initial temperature of the rod is zero everywhere
+    \item The left border is kept at zero degrees
+    \item The temperature at the right border is forced to oscillate like $u_r(t) = sin(t)$.
+  	\end{itemize}
+    
+  \end{frame}
+  
+  \begin{frame}{Cooling rod}
+  
+  	Step 1: find c, f, s so our equation is:
+    
+    \begin{displaymath}
+  		\frac{\partial u}{\partial t} = 0.1 \cdot \frac{\partial^2 u}{\partial x^2} 
+  	\end{displaymath}
+    
+    \pause
+    
+    Step 2: find pl, ql, pr, qr so our boundary conditions are:
+    
+    \begin{displaymath}
+    	u(0, t) =  0
+  	\end{displaymath}
+    
+    \begin{displaymath}
+    	u(1, t) =  sin(t)
+  	\end{displaymath}
+    
+    \pause
+    
+    Step 3: set the initial condition $u_0(x) = 0$
+  	
+  \end{frame}
+  
+  \begin{frame}{Ripple tank}
+  
+  Waves in a water surface (for instance, a swimming pool) follow the wave equation:
+  
+    \begin{displaymath}
+    	\frac{\partial^2 u}{\partial t^2} = c^2 \nabla^2 u
+  	\end{displaymath}
+    
+  This last exercise will be entirely done with Matlab's PDE toolbox.
   
   \end{frame}
 
