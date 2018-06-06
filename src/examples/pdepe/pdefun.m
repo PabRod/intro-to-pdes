@@ -1,6 +1,6 @@
 function [c, f, s] = pdefun(x, t, u, DuDx)
 
-c = pi.^2;
+c = 10;
 f = DuDx;
 s = 0;
 

@@ -10,7 +10,7 @@ t = linspace(0,2*pi,200);
 m = 0;
 sol = pdepe(m, @pdefun, @icfun, @bcfun, x, t);
 
-u = sol(:,:,1);
+u = sol;
 
 surf(x,t,u)
 title('Numerical solution')
